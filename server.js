@@ -3,7 +3,6 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 var request = require('superagent');
-const crypto = require('crypto');
 
 const app = express();
 
