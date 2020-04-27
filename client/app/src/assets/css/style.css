@@ -1,32 +1,292 @@
+@import url("https://fonts.googleapis.com/css2?family=Carter+One&display=swap");
 html,
 body {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Carter One', cursive; }
 
 ul {
   margin: 0;
   padding: 0;
   list-style: none; }
 
+a:focus, a:active,
+button:focus,
+button:active {
+  outline: none;
+  border: none;
+  box-shadow: none; }
+
+a:hover,
+button:hover {
+  cursor: pointer; }
+
+button {
+  width: 250px;
+  font-family: 'Carter One', cursive;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  font-size: 2rem;
+  line-height: 60px;
+  text-transform: lowercase;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 25px; }
+  button:hover {
+    background: rgba(0, 0, 0, 0.5);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 9;
+  background: none;
+  border: none;
+  width: 50px;
+  height: 20px;
+  display: block; }
+  .arrow.prev {
+    opacity: 0.4;
+    left: 50px;
+    background: url("../img/left_arrow.svg") no-repeat scroll center/contain;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .arrow.prev:hover {
+      opacity: 1;
+      left: 40px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+  .arrow.next {
+    opacity: 0.5;
+    left: auto;
+    right: 50px;
+    background: url("../img/right_arrow.svg") no-repeat scroll center/contain;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .arrow.next:hover {
+      opacity: 1;
+      right: 40px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+.paymentIcons {
+  width: 250px;
+  display: block;
+  margin: 10px auto 0; }
+
+h3.productTitle {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 0;
+  padding: 0 25px; }
+  h3.productTitle .price {
+    display: block;
+    font-size: 3rem;
+    vertical-align: middle;
+    color: rgba(0, 0, 0, 0.5); }
+    h3.productTitle .price .sign {
+      font-size: 1.6rem;
+      vertical-align: middle; }
+
+.thumbs {
+  width: 100%;
+  height: 200px;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  bottom: 0;
+  z-index: 9;
+  transform: translate(0, 200px);
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none; }
+  .thumbs:after {
+    content: "";
+    width: 100%;
+    border-radius: 50%;
+    height: 100px;
+    position: absolute;
+    z-index: 1;
+    bottom: -50px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background: white;
+    filter: blur(30px);
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
+  .thumbs.in {
+    transform: translate(0, 0);
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
+  .thumbs button {
+    background: none;
+    border: none;
+    pointer-events: initial; }
+  .thumbs .dot {
+    width: auto;
+    position: relative;
+    z-index: 2; }
+    .thumbs .dot img {
+      width: 50px;
+      height: auto;
+      vertical-align: bottom;
+      transform-origin: bottom;
+      transform: scale(0.9);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .thumbs .dot:hover {
+      cursor: pointer; }
+      .thumbs .dot:hover img {
+        transform: scale(1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+.carouselNav {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 9; }
+
 .carousel {
   width: 100%;
-  overflow-x: hidden; }
+  overflow: hidden; }
   .carousel .slides {
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
+    align-items: flex-start;
     position: relative;
-    transition: all 1s ease-in-out; }
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
     .carousel .slides .slide {
-      min-height: 100vh;
       width: 100%;
       display: flex;
+      flex-direction: column;
       flex: 0 0 auto;
-      justify-content: center;
-      align-items: center;
       scroll-snap-align: start;
       flex-shrink: 0;
       transform-origin: center center;
       transform: scale(1);
-      transition: transform 0.5s ease-in-out;
-      position: relative; }
+      transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      padding: 100px 0 200px; }
+      .carousel .slides .slide.active .productImage .bottle {
+        transform: scale(1);
+        transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
+      .carousel .slides .slide .productImage {
+        position: relative;
+        margin: 0 auto;
+        height: 50vh; }
+        .carousel .slides .slide .productImage .bottle {
+          max-height: 100%;
+          width: auto;
+          position: relative;
+          z-index: 9;
+          transform: scale(0.5);
+          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .carousel .slides .slide .productImage .accent {
+          max-height: 80%;
+          width: auto;
+          position: absolute;
+          top: 5%;
+          left: 50%;
+          z-index: 2;
+          opacity: 0;
+          transform-origin: bottom center;
+          transform: translate(-50%, 0) scale(0.2);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .carousel .slides .slide .productImage:after {
+          content: "";
+          border-radius: 50%;
+          width: 400px;
+          height: 400px;
+          background: rgba(255, 255, 255, 0.9);
+          display: block;
+          position: absolute;
+          z-index: 1;
+          top: 50%;
+          left: 50%;
+          opacity: 0;
+          transform: translate(-50%, -70%);
+          filter: blur(50px);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .carousel .slides .slide .productImage.show .accent {
+          opacity: 1;
+          transform: translate(-50%, 0) scale(1);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .carousel .slides .slide .productImage.show:after {
+          opacity: 0.7;
+          transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
+      .carousel .slides .slide .productInfo {
+        color: rgba(0, 0, 0, 0.5); }
+        .carousel .slides .slide .productInfo p.ingredients {
+          font-size: 0.8rem;
+          line-height: normal; }
+        .carousel .slides .slide .productInfo h4 {
+          margin: 20px 0 0;
+          font-size: 1.4rem; }
+        .carousel .slides .slide .productInfo button {
+          margin: 25px auto 0;
+          display: block; }
+        .carousel .slides .slide .productInfo .primary {
+          color: white; }
+        .carousel .slides .slide .productInfo .description {
+          padding: 25px;
+          font-size: 1.6rem;
+          line-height: 30px; }
+        .carousel .slides .slide .productInfo .secondary {
+          background: rgba(255, 255, 255, 0.2);
+          padding: 25px; }
+          .carousel .slides .slide .productInfo .secondary h4:first-child {
+            margin: 0; }
+      .carousel .slides .slide .CTA .productImage {
+        transform-origin: bottom;
+        transform: scale(0.8); }
+        .carousel .slides .slide .CTA .productImage img {
+          margin: 0 auto;
+          display: block; }
+        .carousel .slides .slide .CTA .productImage:after {
+          background: rgba(255, 255, 255, 0.5); }
+      .carousel .slides .slide .CTA .primary {
+        padding: 0 25px; }
+        .carousel .slides .slide .CTA .primary h3.productTitle {
+          text-align: center;
+          font-size: 1.4rem;
+          color: rgba(0, 0, 0, 0.5);
+          line-height: normal; }
+        .carousel .slides .slide .CTA .primary button {
+          margin: 25px auto 0;
+          display: block; }
+        .carousel .slides .slide .CTA .primary img {
+          display: block; }
+
+@media (min-width: 768px) {
+  .thumbs:after {
+    width: 50%; }
+  .carousel .slides .slide {
+    min-height: 100vh; }
+    .carousel .slides .slide .productImage {
+      height: 80vh; }
+      .carousel .slides .slide .productImage:after {
+        width: 500px;
+        height: 500px; }
+    .carousel .slides .slide .productInfo section {
+      margin: 0 auto;
+      width: 600px; }
+      .carousel .slides .slide .productInfo section.description p {
+        font-size: 1.8rem;
+        line-height: 40px;
+        margin: 50px auto; }
+    .carousel .slides .slide .CTA {
+      width: 600px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      .carousel .slides .slide .CTA .productImage {
+        transform-origin: center;
+        transform: scale(0.5); }
+      .carousel .slides .slide .CTA .primary {
+        padding-left: 50px; }
+        .carousel .slides .slide .CTA .primary h3.productTitle {
+          text-align: left; } }
+
+@media (min-width: 990px) {
+  .carousel .slides .slide .productInfo section {
+    margin: 0 auto; }
+    .carousel .slides .slide .productInfo section.description {
+      width: 800px; } }
