@@ -3,9 +3,9 @@ const router = express.Router();
 
 // const PubKey = process.env.PUBLISHABLE_KEY;
 const config = require('../../../config/keys');
-var stripe = require("stripe")(config.stripe.secretKey);
+const stripe = require("stripe")(config.stripe.secretKey);
 
-var shippo = require('shippo')(process.env.REACT_APP_SHIPPO);
+const shippo = require('shippo')(config.shippo);
 
 var addressFrom = {
 	name: 'PGM Outfitters',
@@ -62,64 +62,93 @@ var addressFrom = {
 // }
 
 // subscribe artist
-router.post('/api/payment/charge', (req,res,next) => {
+// router.post('/create-checkout-session', (req,res,next) => {
 	
-	// define token
-	var token = req.body;
-
-	console.log(token);
+// 	// define token
+// 	let token = req.body;
 	
-	// create purchase order and charge via stripe
-	stripe.customers.create({
-		email: token.email,
-		description: token.card.name,
-		shipping: {
-			name: token.shipping_name,
-			address: {
-				line1: token.shipping_address_line1,
-				city: token.shipping_address_city,
-				state: token.shipping_address_state,
-				postal_code: token.shipping_address_zip,
-				country: 'US',
-			},
-		}
-	})
-	.then(customer =>
-		stripe.orders.create({
-			customer: customer.id,
-			currency: 'usd',
-			email: token.email,
-			items: [
-				{	
-					type: 'sku',
-					amount: 4950,
-					parent: 'sku_EsM1SJCEEOjzM2',
-					quantity: token.qty,
-				}
-			],
-			shipping: {
-				name: token.shipping_name,
-				address: {
-					line1: token.shipping_address_line1,
-					city: token.shipping_address_city,
-					state: token.shipping_address_state,
-					postal_code: token.shipping_address_zip,
-					country: 'US',
-				},
-			}
-		})
-	)
-	.then(order => 
-		stripe.orders.pay(order.id, {
-			source: token.id
-		})
-	)
-	.then(purchaseParcel(token))
-	.catch(err => {
-		console.log("Error:", err);
-		res.status(500).send({error: "Purchase Failed"});
-	});
+// 	// create purchase order and charge via stripe
+// 	stripe.customers.create({
+// 		email: token.email,
+// 		description: token.card.name,
+// 		shipping: {
+// 			name: token.shipping_name,
+// 			address: {
+// 				line1: token.shipping_address_line1,
+// 				city: token.shipping_address_city,
+// 				state: token.shipping_address_state,
+// 				postal_code: token.shipping_address_zip,
+// 				country: 'US',
+// 			},
+// 		}
+// 	})
+// 	.then(customer =>
+// 		stripe.orders.create({
+// 			customer: customer.id,
+// 			currency: 'usd',
+// 			email: token.email,
+// 			items: [
+// 				{	
+// 					type: 'sku',
+// 					amount: 4950,
+// 					parent: 'sku_EsM1SJCEEOjzM2',
+// 					quantity: token.qty,
+// 				}
+// 			],
+// 			shipping: {
+// 				name: token.shipping_name,
+// 				address: {
+// 					line1: token.shipping_address_line1,
+// 					city: token.shipping_address_city,
+// 					state: token.shipping_address_state,
+// 					postal_code: token.shipping_address_zip,
+// 					country: 'US',
+// 				},
+// 			}
+// 		})
+// 	)
+// 	.then(order => 
+// 		stripe.orders.pay(order.id, {
+// 			source: token.id
+// 		})
+// 	)
+// 	.then(purchaseParcel(token))
+// 	.catch(err => {
+// 		console.log("Error:", err);
+// 		res.status(500).send({error: "Purchase Failed"});
+// 	});
 
+// });
+
+router.post('/create-checkout-session', async (req, res) => {
+  // const domainURL = localhost;
+
+  const { 
+  	cart, 
+  	locale 
+  } = req.body;
+  // Create new Checkout Session for the order
+  // Other optional params include:
+  // [billing_address_collection] - to display billing address details on the page
+  // [customer] - if you have an existing Stripe Customer ID
+  // [payment_intent_data] - lets capture the payment later
+  // [customer_email] - lets you prefill the email input in the form
+  // For full details see https://stripe.com/docs/api/checkout/sessions/create
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    shipping_address_collection: {
+		allowed_countries: ['US', 'CA'],
+	},
+    locale: locale,
+    line_items: cart,
+    // ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
+    success_url: 'http://localhost:3000/success',
+    cancel_url: 'http://localhost:3000/cart',
+  });
+
+  res.send({
+    sessionId: session.id,
+  });
 });
 
 module.exports = router;

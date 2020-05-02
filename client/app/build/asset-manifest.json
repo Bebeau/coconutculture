@@ -1,15 +1,32 @@
 {
   "files": {
-    "main.css": "/static/css/main.6942973f.chunk.css",
-    "main.js": "/static/js/main.128f06eb.chunk.js",
-    "main.js.map": "/static/js/main.128f06eb.chunk.js.map",
-    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
-    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
-    "static/js/2.4e81ba5b.chunk.js": "/static/js/2.4e81ba5b.chunk.js",
-    "static/js/2.4e81ba5b.chunk.js.map": "/static/js/2.4e81ba5b.chunk.js.map",
+    "main.css": "/static/css/main.51157f36.chunk.css",
+    "main.js": "/static/js/main.07dd2a76.chunk.js",
+    "main.js.map": "/static/js/main.07dd2a76.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.35fa00cf.js",
+    "runtime-main.js.map": "/static/js/runtime-main.35fa00cf.js.map",
+    "static/js/2.3157e692.chunk.js": "/static/js/2.3157e692.chunk.js",
+    "static/js/2.3157e692.chunk.js.map": "/static/js/2.3157e692.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.357e9d6d9b5e860f6245c17a9d47790d.js": "/precache-manifest.357e9d6d9b5e860f6245c17a9d47790d.js",
+    "precache-manifest.a78bcd4d01ecdc7df0535978b35d59da.js": "/precache-manifest.a78bcd4d01ecdc7df0535978b35d59da.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/main.6942973f.chunk.css.map": "/static/css/main.6942973f.chunk.css.map"
-  }
+    "static/css/main.51157f36.chunk.css.map": "/static/css/main.51157f36.chunk.css.map",
+    "static/js/2.3157e692.chunk.js.LICENSE.txt": "/static/js/2.3157e692.chunk.js.LICENSE.txt",
+    "static/media/conditioner.png": "/static/media/conditioner.eaf838b0.png",
+    "static/media/hemp_seed.png": "/static/media/hemp_seed.c7595a9d.png",
+    "static/media/style.css": "/static/media/right_arrow.32248806.svg",
+    "static/media/marijuana_plant.png": "/static/media/marijuana_plant.69c69710.png",
+    "static/media/marijuana_plant2.png": "/static/media/marijuana_plant2.6dcb9f7a.png",
+    "static/media/miracleHair.png": "/static/media/miracleHair.8eac04ba.png",
+    "static/media/palm_leaf.png": "/static/media/palm_leaf.7567ab3d.png",
+    "static/media/payment-icons.png": "/static/media/payment-icons.e7637cc5.png",
+    "static/media/serum.png": "/static/media/serum.64c28d44.png",
+    "static/media/shampoo.png": "/static/media/shampoo.dc9a32fe.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.35fa00cf.js",
+    "static/js/2.3157e692.chunk.js",
+    "static/css/main.51157f36.chunk.css",
+    "static/js/main.07dd2a76.chunk.js"
+  ]
 }

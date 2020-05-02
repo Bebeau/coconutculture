@@ -48,6 +48,28 @@
 			}
 		}
 	}
+	#cartModal {
+		#cart {
+			width: 600px;
+			h4 {
+				width: 300px;
+			}
+			.productImage {
+				img {
+					max-height: 80px;
+					width: auto;
+				}
+			}
+			.modalFooter {
+				.btn-keepShopping {
+					font-size: 1.2rem;
+				}
+				.btn-checkout {
+					font-size: 1.8rem;
+				}
+			}
+		}
+	}
 }
 @media (min-width: 990px) {
 	.carousel {
