@@ -30,19 +30,24 @@ input {
 	}
 }
 input {
+	box-shadow: none;
+	appearance: none;
+	border-radius: 0;
+	transform: translate(2px,0);
 	&:hover {
 		cursor: inherit;
 	}
 }
 button {
-	width: 250px;
+	width: 200px;
 	font-family: 'Carter One', cursive;
 	background: rgba(0,0,0,0.5);
 	border: none;
-	font-size: 2rem;
+	font-size: 1.6rem;
+	white-space: nowrap;
 	line-height: 60px;
 	text-transform: lowercase;
-	letter-spacing: 0;
+	letter-spacing: 1px;
 	transition: all 0.3s $authenticMotion;
 	&:hover {
 		color: white;
@@ -93,7 +98,9 @@ h3.productTitle {
 	font-size: 2rem;
 	margin-bottom: 0;
 	padding: 0 25px;
+	line-height: 40px;
 	.price {
+		margin-top: 30px;
 		display: block;
 		font-size: 3rem;
 		vertical-align: middle;
@@ -114,7 +121,7 @@ h3.productTitle {
 	bottom: 0;
 	z-index: 9;
 	transform: translate(0,200px);
-	transition: all 1s $authenticMotion;
+	transition: transform 1s $authenticMotion;
 	pointer-events: none;
 	&:after {
 		content: "";
@@ -132,31 +139,31 @@ h3.productTitle {
 	}
 	&.in {
 		transform: translate(0,0);
-		transition: all 1s $authenticMotion;
+		transition: transform 1s $authenticMotion;
 	}
-	button {
+	.dot {
 		background: none;
 		border: none;
 		pointer-events: initial;
-	}
-	.dot {
-		width: auto;
 		position: relative;
 		z-index: 2;
+		width: 100%;
+		display: block;
+		margin: 0;
+		padding: 0 10px;
+		transition: all 0.3s $authenticMotion;
 		img {
-			width: 50px;
-			height: auto;
+			display: block;
+			height: 100px;
+			width: auto;
+			padding-bottom: 10px;
 			vertical-align: bottom;
-			transform-origin: bottom;
-			transform: scale(0.9);
-			transition: all 0.3s $authenticMotion;
+			margin: 0;
+			padding: 0;
 		}
 		&:hover {
 			cursor: pointer;
-			img {
-				transform: scale(1);
-				transition: all 0.3s $authenticMotion;
-			}
+			transition: all 0.3s $authenticMotion;
 		}
 	}
 }
@@ -169,7 +176,7 @@ h3.productTitle {
 	input {
 		max-width: 40px;
 		padding: 0 10px 0 25px;
-		height: 53px;
+		height: 50px;
 		line-height: 60px;
 		font-size: 1.4rem;
 		border: 5px solid rgba(0,0,0,0.5);
@@ -216,7 +223,7 @@ h3.productTitle {
 			transform: scale(1);
 			transition: all 1s $authenticMotion;
 			position: relative;
-			padding: 100px 0 100px;
+			padding: 100px 0 200px;
 			&.active {
 				.productImage {
 					.bottle {
@@ -327,6 +334,9 @@ h3.productTitle {
 						font-size: 1.4rem;
 						color: rgba(0,0,0,0.5);
 						line-height: normal;
+						.price {
+							margin-top: 0;
+						}
 					}
 					img {
 						display: block;
@@ -451,6 +461,7 @@ h3.productTitle {
 			align-items: center;
 			button {
 				width: 50%;
+				letter-spacing: 0;
 			}
 			.btn-keepShopping {
 				font-size: 1rem;

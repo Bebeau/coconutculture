@@ -133,7 +133,7 @@ class CarouselRightArrow extends Component {
 class CarouselIndicator extends Component {
   render() {
     return (
-      <li>
+      <article>
         <button
           id={"#slide-"+this.props.index}
           className={
@@ -145,7 +145,7 @@ class CarouselIndicator extends Component {
         >
           <img src={this.props.slide.productImg} alt={this.props.slide.productName} />
         </button>
-      </li>
+      </article>
     );
   }
 }
@@ -279,20 +279,18 @@ class Carousel extends Component {
       qty: 1,
       showCart: false
     };
-    setTimeout(() => {
-      this.setState({
-        show: true
-      });
-    }, 500);
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
 
     let slideHeight = document.getElementById('slide-0').clientHeight+"px";
-    this.setState({
-      slideHeight: slideHeight
-    });
+    setTimeout(() => {
+      this.setState({
+        slideHeight: slideHeight,
+        show: true
+      });
+    }, 500);
   }
 
   componentWillUnmount(){
@@ -511,7 +509,7 @@ class Carousel extends Component {
           onClick={e => this.goToSlide(e, activeIndex)} 
         />
         
-        <ul 
+        <div
           className={`
             thumbs
             ${
@@ -530,7 +528,7 @@ class Carousel extends Component {
               onClick={e => this.goToSlide(e, index)}
             />
           )}
-        </ul>
+        </div>
 
         <div 
           className="carousel" 

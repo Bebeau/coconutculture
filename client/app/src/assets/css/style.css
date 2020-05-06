@@ -27,18 +27,24 @@ button:hover,
 input:hover {
   cursor: pointer; }
 
-input:hover {
-  cursor: inherit; }
+input {
+  box-shadow: none;
+  appearance: none;
+  border-radius: 0;
+  transform: translate(2px, 0); }
+  input:hover {
+    cursor: inherit; }
 
 button {
-  width: 250px;
+  width: 200px;
   font-family: 'Carter One', cursive;
   background: rgba(0, 0, 0, 0.5);
   border: none;
-  font-size: 2rem;
+  font-size: 1.6rem;
+  white-space: nowrap;
   line-height: 60px;
   text-transform: lowercase;
-  letter-spacing: 0;
+  letter-spacing: 1px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
   button:hover {
     color: white;
@@ -83,8 +89,10 @@ h3.productTitle {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 0;
-  padding: 0 25px; }
+  padding: 0 25px;
+  line-height: 40px; }
   h3.productTitle .price {
+    margin-top: 30px;
     display: block;
     font-size: 3rem;
     vertical-align: middle;
@@ -103,7 +111,7 @@ h3.productTitle {
   bottom: 0;
   z-index: 9;
   transform: translate(0, 200px);
-  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none; }
   .thumbs:after {
     content: "";
@@ -120,27 +128,29 @@ h3.productTitle {
     transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
   .thumbs.in {
     transform: translate(0, 0);
-    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
-  .thumbs button {
+    transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1); }
+  .thumbs .dot {
     background: none;
     border: none;
-    pointer-events: initial; }
-  .thumbs .dot {
-    width: auto;
+    pointer-events: initial;
     position: relative;
-    z-index: 2; }
+    z-index: 2;
+    width: 100%;
+    display: block;
+    margin: 0;
+    padding: 0 10px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
     .thumbs .dot img {
-      width: 50px;
-      height: auto;
+      display: block;
+      height: 100px;
+      width: auto;
+      padding-bottom: 10px;
       vertical-align: bottom;
-      transform-origin: bottom;
-      transform: scale(0.9);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+      margin: 0;
+      padding: 0; }
     .thumbs .dot:hover {
-      cursor: pointer; }
-      .thumbs .dot:hover img {
-        transform: scale(1);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 .order {
   display: flex;
@@ -151,7 +161,7 @@ h3.productTitle {
   .order input {
     max-width: 40px;
     padding: 0 10px 0 25px;
-    height: 53px;
+    height: 50px;
     line-height: 60px;
     font-size: 1.4rem;
     border: 5px solid rgba(0, 0, 0, 0.5);
@@ -191,7 +201,7 @@ h3.productTitle {
       transform: scale(1);
       transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
-      padding: 100px 0 100px; }
+      padding: 100px 0 200px; }
       .carousel .slides .slide.active .productImage .bottle {
         transform: scale(1);
         transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -275,6 +285,8 @@ h3.productTitle {
           font-size: 1.4rem;
           color: rgba(0, 0, 0, 0.5);
           line-height: normal; }
+          .carousel .slides .slide .CTA .primary h3.productTitle .price {
+            margin-top: 0; }
         .carousel .slides .slide .CTA .primary img {
           display: block; }
         .carousel .slides .slide .CTA .primary .order {
@@ -378,7 +390,8 @@ h3.productTitle {
       justify-content: center;
       align-items: center; }
       #cartModal #cart .modalFooter button {
-        width: 50%; }
+        width: 50%;
+        letter-spacing: 0; }
       #cartModal #cart .modalFooter .btn-keepShopping {
         font-size: 1rem;
         background: lightgrey;
@@ -399,8 +412,16 @@ h3.productTitle {
       transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
 
 @media (min-width: 768px) {
+  button {
+    width: 250px;
+    letter-spacing: 0.5px;
+    font-size: 2rem;
+    white-space: nowrap; }
   .thumbs:after {
     width: 50%; }
+  .order input {
+    height: 53px;
+    transform: translate(0, 0); }
   .carousel .slides .slide {
     min-height: 100vh; }
     .carousel .slides .slide .productImage {
