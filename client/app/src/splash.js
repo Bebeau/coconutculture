@@ -17,7 +17,7 @@ import palmLeaf from './assets/img/palm_leaf.png';
 import paymentIcons from './assets/img/payment-icons.png';
 
 const { Component } = React;
-const stripePromise = loadStripe('pk_test_z71vjawPk4YOho7VyODQDaJw00QpTws1iB');
+const stripePromise = loadStripe('pk_live_qo04CBrV60Hz99kaJiZRHlPF009cQ9WnVq');
 
 const advancedMatching = {};
 const options = {
@@ -43,7 +43,7 @@ const slides = [
     productDirections: "Apply to clean, damp hair after a shower. Style as usual with heat tool or stand alone.",
     productIngredients: "Cyclopentasiloxane, Dimethiconol, Phenyl Trimethicone, Cocos Nucifera (Coconut) Oil, Cannabis Sativa (Hemp) Seed Oil, Parfum/Fragrance, Linalool, Cheryl Cinnamal, Citral, Benzyl Benzoate, Geraniol, Limonene",
     productSKU: "",
-    stripeSKU: "",
+    stripeSKU: "sku_HEccrZZzTHfMt0",
     productUPC: "814487025391",
     productWeight: "4oz"
   },
@@ -57,7 +57,7 @@ const slides = [
     productDirections: "Massage into wet hair starting from the roots to the scalp. Rinse and follow with our Coconut Oil and Castor Conditioner!",
     productIngredients: "Water (Agua), Cocamidopropyl Betaine, Sodium Cocoyl Isethionate, Glycerin, Polyquaternium-7, Ricinus Communis (Jamaican Black Castor) Seed Oil, Tocopherol, (Vitamin E), Biotin, Cannabis Sativa (Hemp) Seed Oil, Guar Hydroxypropyltrimonium Chloride, Hydrolyzed Keratin, Argania Spinosa (Argan) Kernel Oil, Cocos Nucifera (Coconut) Oil, PEG 150 Distearate, Panthenol, Citric Acid, Ethylhexylglycerin, Phenoxyethanol, Fragrance (Parfum)",
     productSKU: "CCS025",
-    stripeSKU: "",
+    stripeSKU: "sku_HEceDv9Kabvd5i",
     productUPC: "814487024486",
     productWeight: "12oz"
   },
@@ -71,7 +71,7 @@ const slides = [
     productDirections: "Massage into wet hair starting from the roots to the scalp and rinse.",
     productIngredients: "Water (Aqua), Stearyl Alcohol, Stearalkonium Chloride, Cetyl Alcohol, Ricinus Communis (Jamaican Black Castor) Seed Oil, Cetrimonium Chloride, Butyrospermum Parkii (Shea Butter), Argania Spinosa (Argan) Kernel Oil, Cocos Nucifera (Coconut) Oil, Cannabis Sativa (Hemp) Seed Oil, Hydrolyzed Keratin, Tocopherol (Vitamin E) Biotin, Citric Acid, Ethylhexylglycerin, Phenoxyethanol, Fragrance (Parfum)",
     productSKU: "CCS025",
-    stripeSKU: "",
+    stripeSKU: "sku_HEcebUPFiwe76n",
     productUPC: "814487024493",
     productWeight: "12oz"
   },
@@ -85,7 +85,7 @@ const slides = [
     productDirections: "After the shower, spray thoroughly throughout hair after towel drying. Allows easier brushing, drying without fizz, and manages fly-aways.",
     productIngredients: "Water (Aqua), Cetyl Alcohol, Cocos Nucifera (Coconut) Oil, Amodimethicone, Cetrimonium Bromide, Cyclopentasiloxane, Cetrimonium Chloride, Cannabis Sativa (Hemp) Seed Oil, Aloe Barbadensis Leaf Extract, Pyrus Malus Fruit Extract, Chamomilla Recutita Flower Extract, Rosmarinus Officinalls Leaf Extract, Vitis Vinitera Seed Extract, Foeniculum Vulgare Fruit Extract, Calendula Officinalis Flower Extract, Citrus Aurantium Dulcis Fruit Extract, Trideceth-12, Glycerin, Panthenol, Citric Acid, Phenoxyethanol, Ethyhexylglycerin, Fragrance (Parfum)",
     productSKU: "HCMHL12",
-    stripeSKU: "",
+    stripeSKU: "sku_HEchwIPeL1DwYn",
     productUPC: "814487024448",
     productWeight: "12oz"
   },
@@ -99,7 +99,7 @@ const slides = [
     productDirections: "Spray onto towl-dried hair and brush through. Style as usual.",
     productIngredients: "Water (Agua), Cetyl Alcohol, Cocos Nucifera (Coconut) Oil, modimethicone, Cetrimonium Bromide, Cyclopentasiloxane, Cetrimonium Chloride, Cannabis Sativa (Hemp) Seed Oil, Aloe Barbadensis Leaf Extract, Pyrus Malus Fruit Extract, Chamomilla Recutia Flower Extract, Chamomilla Recutita Flower Extract, Citrus Limon Fruit Extract, Rosmarinus Officinalis Leaf Extract, Vitis Vinifera Seed Extract, Foeniculum Vulgare Fruit Extract, Calendula Officinalis Flower Extract, Citrus Aurantium Dulcis Fruit Extract, Trideceth-12, Glycerin, Panthenol, Citric Acid, Phenoxyethanol, Ethylhexylglycerin, Fragrance (Parfum)",
     productSKU: "HSHT12",
-    stripeSKU: "",
+    stripeSKU: "sku_HEchupntahygkN",
     productUPC: "814487025070",
     productWeight: "12oz"
   },
@@ -244,13 +244,16 @@ class CarouselSlide extends Component {
 // Component for carousel indicator
 class CartModal extends Component {
   render() {
-    let price = ((this.props.product.amount / 100) * (this.props.product.quantity)).toFixed(2);
+    let sku = this.props.product.sku;
+    let slideIndex = slides.findIndex(item => item.stripeSKU === sku);
+    let product = slides[slideIndex];
+    let price = ((product.productPrice) * (this.props.product.quantity)).toFixed(2);
     return (
       <section className="singleProduct">
         <div className="productImage">
-          <img src={this.props.product.images[0]} alt={this.props.product.name} />
+          <img src={product.productImg} alt={product.productName} />
         </div>
-        <h4>{this.props.product.name}</h4>
+        <h4>{product.productName}</h4>
         <div className="quantity"><span>x</span> {this.props.product.quantity}</div>
         <div className="price"><span>$</span>{price}</div>
         <button className="remove" onClick={this.props.removeProduct}></button>
@@ -389,9 +392,8 @@ class Carousel extends Component {
 
   addToCart(e, index, qty) {
     let product = slides[index];
-
-    if( cart.some(row => row.name.includes(product.productName)) ) {
-      let itemIndex = cart.findIndex(item => item.name === product.productName);
+    if( cart.some(row => row.sku.includes(product.stripeSKU)) ) {
+      let itemIndex = cart.findIndex(item => item.sku === product.stripeSKU);
       let newQty = (Number(cart[itemIndex].quantity) + Number(qty));
       let newItem = {
           ...cart[itemIndex],
@@ -399,13 +401,9 @@ class Carousel extends Component {
       }
       cart.splice(itemIndex, 1, newItem);
     } else {
-      let price = (product.productPrice * 100).toFixed();
       let purchase = {
-        name: product.productName,
-        images: [product.productImg],
-        quantity: qty,
-        currency: 'usd',
-        amount: price
+        sku: product.stripeSKU,
+        quantity: Number(qty)
       }
       cart.push(purchase);
     }
@@ -413,6 +411,7 @@ class Carousel extends Component {
       cart: cart,
       showCart: true
     });
+    console.log(cart);
   }
 
   hideCart() {
@@ -437,15 +436,27 @@ class Carousel extends Component {
 
   async checkout(event) {
     // Call your backend to create the Checkout session.
-    const { sessionId } = await this.fetchCheckoutSession();
+    // const { sessionId } = await this.fetchCheckoutSession();
     // When the customer clicks on the button, redirect them to Checkout.
     const stripe = await stripePromise;
     const { error } = await stripe.redirectToCheckout({
-      sessionId,
+      // sessionId,
+      submitType: "pay",
+      items: cart,
+      shippingAddressCollection: {
+        allowedCountries: ['US', 'CA'],
+      },
+      successUrl: window.location.protocol + '//customnatureproducts.com/success',
+      cancelUrl: window.location.protocol + '//customnatureproducts.com/',
+    })
+    .then(function (result) {
+      if (result.error) {
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, display the localized error message to your customer.
+        var displayError = document.getElementById('error-message');
+        displayError.textContent = result.error.message;
+      }
     });
-    // If `redirectToCheckout` fails due to a browser or network
-    // error, display the localized error message to your customer
-    // using `error.message`.
   }
 
   async fetchCheckoutSession() {

@@ -12,8 +12,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // API routes
 // require('./server/routes')(app);
-var payment = require('./server/routes/api/payment.js');
-app.use(payment);
+// var payment = require('./server/routes/api/payment.js');
+// app.use(payment);
 
 // Serve any static files
 app.use(express.static(path.join(__dirname, 'client/app/build')));
