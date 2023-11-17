@@ -1,7 +1,6 @@
 import React from 'react';
-import { loadStripe } from '@stripe/stripe-js';
 
-import fb from 'react-facebook-pixel';
+// import fb from 'react-facebook-pixel';
 import ga from 'react-ga';
 
 import miracleHair from './assets/img/miracleHair.png';
@@ -14,18 +13,18 @@ import mjPlant from './assets/img/marijuana_plant.png';
 import mjPlant2 from './assets/img/marijuana_plant2.png';
 import palmLeaf from './assets/img/palm_leaf.png';
 
-import paymentIcons from './assets/img/payment-icons.png';
+// import paymentIcons from './assets/img/payment-icons.png';
 
 const { Component } = React;
-const stripePromise = loadStripe('pk_live_qo04CBrV60Hz99kaJiZRHlPF009cQ9WnVq');
+// const stripePromise = loadStripe('pk_live_qo04CBrV60Hz99kaJiZRHlPF009cQ9WnVq');
 
-const advancedMatching = {};
-const options = {
-    autoConfig: true,
-    debug: false,
-};
-fb.init('1898888150241641', advancedMatching, options);
-fb.pageView();
+// const advancedMatching = {};
+// const options = {
+//     autoConfig: true,
+//     debug: false,
+// };
+// fb.init('1898888150241641', advancedMatching, options);
+// fb.pageView();
 
 ga.initialize('UA-44007005-16');
 ga.plugin.require('ecommerce');
@@ -105,7 +104,7 @@ const slides = [
   },
 ];
 
-const cart = [];
+// const cart = [];
 
 // Component for left arrow
 class CarouselLeftArrow extends Component {
@@ -182,12 +181,12 @@ class CarouselSlide extends Component {
           <section className="primary">
             <h3 className="productTitle">
               {this.props.slide.productName}
-              <span className="price">
+              {/* <span className="price">
                 <span className="sign">$</span>
                 {this.props.slide.productPrice}
-              </span>
+              </span> */}
             </h3>
-            <div className="order">
+            {/* <div className="order">
               <input type="number" min="1" name="qty" value={this.props.qty} onChange={this.props.onQtyChange} placeholder="qty" />
               <button
                 style={{color: this.props.slide.bgColor}}
@@ -196,7 +195,7 @@ class CarouselSlide extends Component {
                 Add To Cart
               </button>
             </div>
-            <img className="paymentIcons" src={paymentIcons} alt="payment icons" />
+            <img className="paymentIcons" src={paymentIcons} alt="payment icons" /> */}
           </section>
           <section className="description">
             <p>{this.props.slide.productDesc}</p>
@@ -211,7 +210,7 @@ class CarouselSlide extends Component {
           </section>
         </div>
 
-        <div className="CTA">
+        {/* <div className="CTA">
           <section className="productImage show">
             <img className="bottle" src={this.props.slide.productImg} alt="" />
             <img className="accent" src={this.props.slide.bgImg} alt="" />
@@ -235,32 +234,32 @@ class CarouselSlide extends Component {
             </div>
             <img className="paymentIcons" src={paymentIcons} alt="payment icons" />
           </section>
-        </div>
+        </div> */}
 
       </div>
     );
   }
 }
 // Component for carousel indicator
-class CartModal extends Component {
-  render() {
-    let sku = this.props.product.sku;
-    let slideIndex = slides.findIndex(item => item.stripeSKU === sku);
-    let product = slides[slideIndex];
-    let price = ((product.productPrice) * (this.props.product.quantity)).toFixed(2);
-    return (
-      <section className="singleProduct">
-        <div className="productImage">
-          <img src={product.productImg} alt={product.productName} />
-        </div>
-        <h4>{product.productName}</h4>
-        <div className="quantity"><span>x</span> {this.props.product.quantity}</div>
-        <div className="price"><span>$</span>{price}</div>
-        <button className="remove" onClick={this.props.removeProduct}></button>
-      </section>
-    );
-  }
-}
+// class CartModal extends Component {
+//   render() {
+//     let sku = this.props.product.sku;
+//     let slideIndex = slides.findIndex(item => item.stripeSKU === sku);
+//     let product = slides[slideIndex];
+//     let price = ((product.productPrice) * (this.props.product.quantity)).toFixed(2);
+//     return (
+//       <section className="singleProduct">
+//         <div className="productImage">
+//           <img src={product.productImg} alt={product.productName} />
+//         </div>
+//         <h4>{product.productName}</h4>
+//         <div className="quantity"><span>x</span> {this.props.product.quantity}</div>
+//         <div className="price"><span>$</span>{price}</div>
+//         <button className="remove" onClick={this.props.removeProduct}></button>
+//       </section>
+//     );
+//   }
+// }
 
 // Carousel component
 class Carousel extends Component {
@@ -270,9 +269,9 @@ class Carousel extends Component {
     this.goToSlide = this.goToSlide.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
 
-    this.checkout = this.checkout.bind(this);
-    this.fetchCheckoutSession = this.fetchCheckoutSession.bind(this);
-    this.hideCart = this.hideCart.bind(this);
+    // this.checkout = this.checkout.bind(this);
+    // this.fetchCheckoutSession = this.fetchCheckoutSession.bind(this);
+    // this.hideCart = this.hideCart.bind(this);
 
     this.state = {
       activeIndex: 0,
@@ -280,7 +279,7 @@ class Carousel extends Component {
       show: false,
       scrolling: false,
       qty: 1,
-      showCart: false
+      // showCart: false
     };
   }
 
@@ -390,87 +389,87 @@ class Carousel extends Component {
 
   }
 
-  addToCart(e, index, qty) {
-    let product = slides[index];
-    if( cart.some(row => row.sku.includes(product.stripeSKU)) ) {
-      let itemIndex = cart.findIndex(item => item.sku === product.stripeSKU);
-      let newQty = (Number(cart[itemIndex].quantity) + Number(qty));
-      let newItem = {
-          ...cart[itemIndex],
-          quantity: newQty
-      }
-      cart.splice(itemIndex, 1, newItem);
-    } else {
-      let purchase = {
-        sku: product.stripeSKU,
-        quantity: Number(qty)
-      }
-      cart.push(purchase);
-    }
-    this.setState({ 
-      cart: cart,
-      showCart: true
-    });
-    console.log(cart);
-  }
+  // addToCart(e, index, qty) {
+  //   let product = slides[index];
+  //   if( cart.some(row => row.sku.includes(product.stripeSKU)) ) {
+  //     let itemIndex = cart.findIndex(item => item.sku === product.stripeSKU);
+  //     let newQty = (Number(cart[itemIndex].quantity) + Number(qty));
+  //     let newItem = {
+  //         ...cart[itemIndex],
+  //         quantity: newQty
+  //     }
+  //     cart.splice(itemIndex, 1, newItem);
+  //   } else {
+  //     let purchase = {
+  //       sku: product.stripeSKU,
+  //       quantity: Number(qty)
+  //     }
+  //     cart.push(purchase);
+  //   }
+  //   this.setState({ 
+  //     cart: cart,
+  //     showCart: true
+  //   });
+  //   console.log(cart);
+  // }
 
-  hideCart() {
-    this.setState({
-      showCart: false
-    });
-  }
+  // hideCart() {
+  //   this.setState({
+  //     showCart: false
+  //   });
+  // }
 
-  removeFromCart(index) {
-    if (index > -1) {
-      cart.splice(index, 1);
-    }
-    this.setState({ 
-      cart: cart
-    });
-    if(cart.length === 0) {
-      this.setState({ 
-        showCart: false
-      });
-    }
-  }
+  // removeFromCart(index) {
+  //   if (index > -1) {
+  //     cart.splice(index, 1);
+  //   }
+  //   this.setState({ 
+  //     cart: cart
+  //   });
+  //   if(cart.length === 0) {
+  //     this.setState({ 
+  //       showCart: false
+  //     });
+  //   }
+  // }
 
-  async checkout(event) {
-    // Call your backend to create the Checkout session.
-    // const { sessionId } = await this.fetchCheckoutSession();
-    // When the customer clicks on the button, redirect them to Checkout.
-    const stripe = await stripePromise;
-    const { error } = await stripe.redirectToCheckout({
-      // sessionId,
-      submitType: "pay",
-      items: cart,
-      shippingAddressCollection: {
-        allowedCountries: ['US', 'CA'],
-      },
-      successUrl: window.location.protocol + '//customnatureproducts.com/success',
-      cancelUrl: window.location.protocol + '//customnatureproducts.com/',
-    })
-    .then(function (result) {
-      if (result.error) {
-        // If `redirectToCheckout` fails due to a browser or network
-        // error, display the localized error message to your customer.
-        var displayError = document.getElementById('error-message');
-        displayError.textContent = result.error.message;
-      }
-    });
-  }
+  // async checkout(event) {
+  //   // Call your backend to create the Checkout session.
+  //   // const { sessionId } = await this.fetchCheckoutSession();
+  //   // When the customer clicks on the button, redirect them to Checkout.
+  //   const stripe = await stripePromise;
+  //   const { error } = await stripe.redirectToCheckout({
+  //     // sessionId,
+  //     submitType: "pay",
+  //     items: cart,
+  //     shippingAddressCollection: {
+  //       allowedCountries: ['US', 'CA'],
+  //     },
+  //     successUrl: window.location.protocol + '//customnatureproducts.com/success',
+  //     cancelUrl: window.location.protocol + '//customnatureproducts.com/',
+  //   })
+  //   .then(function (result) {
+  //     if (result.error) {
+  //       // If `redirectToCheckout` fails due to a browser or network
+  //       // error, display the localized error message to your customer.
+  //       var displayError = document.getElementById('error-message');
+  //       displayError.textContent = result.error.message;
+  //     }
+  //   });
+  // }
 
-  async fetchCheckoutSession() {
-    let cart = this.state.cart;
-    return fetch('/create-checkout-session', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        cart,
-      }),
-    }).then((res) => res.json());
-  };
+  // async fetchCheckoutSession() {
+  //   let cart = this.state.cart;
+  //   return fetch('/create-checkout-session', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       cart,
+  //     }),
+  //   }).then((res) => res.json());
+  // };
 
   render() {
 
@@ -481,7 +480,7 @@ class Carousel extends Component {
       show,
       scrolling,
       qty,
-      showCart
+      // showCart
     } = this.state;
 
     let offset = -sliderPos + 'px';
@@ -490,7 +489,7 @@ class Carousel extends Component {
 
       <div id="productWrap">
 
-        <div id="cartModal"
+        {/* <div id="cartModal"
           className={
               showCart === true
               ? "show"
@@ -511,7 +510,7 @@ class Carousel extends Component {
               <button className="btn-checkout" onClick={this.checkout}>Checkout</button>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <CarouselLeftArrow 
           onClick={e => this.goToSlide(e, activeIndex)} 
